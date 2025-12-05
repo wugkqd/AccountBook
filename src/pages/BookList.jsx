@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import BookCard from '../components/BookCard.jsx'
+import BookCard from '../component/BookCard.jsx'
 
 export default function BookList({books}) {
 	return (

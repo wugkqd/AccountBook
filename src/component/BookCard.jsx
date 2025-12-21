@@ -1,7 +1,20 @@
 import { Link } from 'react-router-dom'
 
 export default function BookCard({ book }) {
-	const dateStr = book?.date?.$date ? new Date(book.date.$date).toLocaleDateString('ko-KR') : ''
+	// 날짜 처리: MongoDB 형식 또는 ISO 문자열 처리
+	const getDateStr = () => {
+		if (!book?.date) return ''
+		
+		// MongoDB { $date: "..." } 형식
+		if (book.date.$date) {
+			return new Date(book.date.$date).toLocaleDateString('ko-KR')
+		}
+		
+		// ISO 문자열 또는 일반 날짜 문자열
+		return new Date(book.date).toLocaleDateString('ko-KR')
+	}
+	
+	const dateStr = getDateStr()
 	const amountStr = typeof book?.amount === 'number' ? book.amount.toLocaleString() : (book?.amount ?? '')
 	const sign = book?.type === 'income' ? '+' : book?.type === 'expense' ? '-' : ''
 	const typeLabel = book?.type === 'income' ? '수입' : book?.type === 'expense' ? '지출' : (book?.type ?? '')

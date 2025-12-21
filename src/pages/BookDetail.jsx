@@ -35,7 +35,20 @@ const BookDetail = () => {
 		</div>
 	)
 
-	const dateStr = book.date && book.date.$date ? new Date(book.date.$date).toLocaleString('ko-KR') : ''
+	// 날짜 처리: MongoDB 형식 또는 ISO 문자열 처리
+	const getDateStr = () => {
+		if (!book?.date) return ''
+		
+		// MongoDB { $date: "..." } 형식
+		if (book.date.$date) {
+			return new Date(book.date.$date).toLocaleString('ko-KR')
+		}
+		
+		// ISO 문자열 또는 일반 날짜 문자열
+		return new Date(book.date).toLocaleString('ko-KR')
+	}
+	
+	const dateStr = getDateStr()
 	const amountStr = typeof book.amount === 'number' ? book.amount.toLocaleString() : book.amount
 	const isIncome = book.type === 'income'
 

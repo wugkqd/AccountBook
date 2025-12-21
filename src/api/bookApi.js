@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: 'http://localhost:8080/api/books',
+  baseURL: 'https://account-book-u64a.onrender.com/api/books',
 })
 
 export const getBookList = async () => {
